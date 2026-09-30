@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h4 class="mb-3">My Complaints</h4>
+{% if not complaints %}
+  <div class="alert alert-info">You have not reported anything yet. <a href="{{ url_for('report') }}">Report an issue</a></div>
+{% endif %}
+<div class="row g-3">
+  {% for c in complaints %}
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <img src="{{ url_for('static', filename='uploads/' + c.photo) }}" class="card-img-top" style="height:200px;object-fit:cover" alt="photo">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h6>#{{ c.id }} &middot; {{ c.category }}</h6>
+          <span class="badge {% if c.status == 'Pending' %}bg-warning text-dark{% elif c.status == 'In Progress' %}bg-primary{% else %}bg-success{% endif %}">{{ c.status }}</span>
+        </div>
+        <p class="mb-1"><strong>Location:</strong> {{ c.location }}</p>
+        <p class="mb-1">{{ c.description }}</p>
+        <small class="text-muted">{{ c.date }}</small>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

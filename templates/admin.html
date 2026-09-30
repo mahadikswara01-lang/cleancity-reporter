@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h4 class="mb-3">Admin Panel</h4>
+<div class="row g-3 mb-4 text-center">
+  <div class="col-md-3"><div class="card border-dark"><div class="card-body"><h2>{{ counts.total }}</h2>Total</div></div></div>
+  <div class="col-md-3"><div class="card border-warning"><div class="card-body"><h2>{{ counts.pending }}</h2>Pending</div></div></div>
+  <div class="col-md-3"><div class="card border-primary"><div class="card-body"><h2>{{ counts.progress }}</h2>In Progress</div></div></div>
+  <div class="col-md-3"><div class="card border-success"><div class="card-body"><h2>{{ counts.resolved }}</h2>Resolved</div></div></div>
+</div>
+<div class="table-responsive">
+<table class="table table-bordered table-hover bg-white align-middle">
+  <thead class="table-success">
+    <tr><th>ID</th><th>Photo</th><th>User</th><th>Category</th><th>Location</th><th>Description</th><th>Date</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+  {% for c in complaints %}
+    <tr>
+      <td>{{ c.id }}</td>
+      <td><a href="{{ url_for('static', filename='uploads/' + c.photo) }}" target="_blank">
+        <img src="{{ url_for('static', filename='uploads/' + c.photo) }}" width="70" height="70" style="object-fit:cover" alt="photo"></a></td>
+      <td>{{ c.user_name }}</td>
+      <td>{{ c.category }}</td>
+      <td>{{ c.location }}</td>
+      <td>{{ c.description }}</td>
+      <td>{{ c.date }}</td>
+      <td>
+        <form method="post" action="{{ url_for('admin_update', cid=c.id) }}" class="d-flex gap-1">
+          <select name="status" class="form-select form-select-sm">
+            {% for s in statuses %}<option {% if s == c.status %}selected{% endif %}>{{ s }}</option>{% endfor %}
+          </select>
+          <button class="btn btn-sm btn-success">Save</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="8" class="text-center text-muted">No complaints yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow-sm"><div class="card-body">
+      <h4 class="mb-3">Report an Issue</h4>
+      <form method="post" enctype="multipart/form-data">
+        <label class="form-label">Category</label>
+        <select class="form-select mb-3" name="category" required>
+          {% for c in categories %}<option>{{ c }}</option>{% endfor %}
+        </select>
+        <label class="form-label">Location / Area</label>
+        <input class="form-control mb-3" type="text" name="location" placeholder="e.g. Kandivali East station, near platform 1" required>
+        <label class="form-label">Description</label>
+        <textarea class="form-control mb-3" name="description" rows="4" placeholder="Describe the problem" required></textarea>
+        <label class="form-label">Photo (evidence)</label>
+        <input class="form-control mb-3" type="file" name="photo" accept="image/*" required>
+        <button class="btn btn-success w-100">Submit Complaint</button>
+      </form>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

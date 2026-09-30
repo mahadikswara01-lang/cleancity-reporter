@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center mb-4">
+  <h2 class="text-success">Report. Track. Keep our city clean.</h2>
+  <p class="text-muted">Report dirty or damaged public facilities with a photo and track the action taken.</p>
+</div>
+<div class="row g-4 justify-content-center">
+  <div class="col-md-5">
+    <div class="card shadow-sm"><div class="card-body">
+      <h4 class="mb-3">Login</h4>
+      <form method="post" action="{{ url_for('login') }}">
+        <input class="form-control mb-3" type="email" name="email" placeholder="Email" required>
+        <input class="form-control mb-3" type="password" name="password" placeholder="Password" required>
+        <button class="btn btn-success w-100">Login</button>
+      </form>
+    </div></div>
+  </div>
+  <div class="col-md-5">
+    <div class="card shadow-sm"><div class="card-body">
+      <h4 class="mb-3">New user? Register</h4>
+      <form method="post" action="{{ url_for('register') }}">
+        <input class="form-control mb-3" type="text" name="name" placeholder="Full name" required>
+        <input class="form-control mb-3" type="email" name="email" placeholder="Email" required>
+        <input class="form-control mb-3" type="password" name="password" placeholder="Password (min 4 characters)" required>
+        <button class="btn btn-outline-success w-100">Register</button>
+      </form>
+    </div></div>
+  </div>
+</div>
+{% endblock %}
